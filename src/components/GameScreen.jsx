@@ -161,12 +161,13 @@ export default function GameScreen({
 
       {/* Palabra a adivinar */}
       <div className="word-display">
-        <p className="sr-only">
-          Palabra: {gameState.displayWord.split('').join(' ')}
-        </p>
-        <div className="word-letters" aria-hidden="true">
+        <div 
+          className="word-letters"
+          role="img"
+          aria-label={`Palabra: ${gameState.displayWord.split(' ').join(', ')}`}
+        >
           {gameState.displayWord.split(' ').map((letter, index) => (
-            <span key={index} className="word-letter">
+            <span key={index} className="word-letter" aria-hidden="true">
               {letter}
             </span>
           ))}
@@ -176,20 +177,21 @@ export default function GameScreen({
       {/* Letras usadas */}
       <div className="used-letters">
         <h2>Letras usadas</h2>
-        <p className="sr-only">
-          {gameState.guessedLetters.length > 0 
+        <div 
+          className="letters-list"
+          role="img"
+          aria-label={gameState.guessedLetters.length > 0 
             ? `Letras usadas: ${gameState.guessedLetters.join(', ')}`
             : 'No has usado ninguna letra todavía'}
-        </p>
-        <div className="letters-list" aria-hidden="true">
+        >
           {gameState.guessedLetters.length > 0 ? (
             gameState.guessedLetters.map((letter, index) => (
-              <span key={index} className="used-letter">
+              <span key={index} className="used-letter" aria-hidden="true">
                 {letter}
               </span>
             ))
           ) : (
-            <span className="no-letters">Ninguna</span>
+            <span className="no-letters" aria-hidden="true">Ninguna</span>
           )}
         </div>
       </div>
