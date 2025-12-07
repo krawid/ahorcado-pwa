@@ -140,9 +140,9 @@ export default function GameScreen({
   }, [showWordDialog, showHintConfirm]);
 
   return (
-    <div className="game-screen" role="main">
+    <main className="game-screen">
       {/* Información del juego */}
-      <div className="game-info" role="region" aria-label="Información del juego">
+      <div className="game-info">
         <div className="info-item">
           <span className="info-label">Categoría:</span>
           <span className="info-value">{gameState.category}</span>
@@ -153,23 +153,20 @@ export default function GameScreen({
         </div>
         <div className="info-item">
           <span className="info-label">Intentos:</span>
-          <span 
-            className={`info-value ${gameState.attemptsLeft <= 2 ? 'danger' : ''}`}
-            aria-label={`${gameState.attemptsLeft} intentos restantes de ${gameState.maxAttempts}`}
-          >
+          <span className={`info-value ${gameState.attemptsLeft <= 2 ? 'danger' : ''}`}>
             {gameState.attemptsLeft} / {gameState.maxAttempts}
           </span>
         </div>
       </div>
 
       {/* Palabra a adivinar */}
-      <div className="word-display" role="region" aria-label="Palabra a adivinar">
-        <div 
-          className="word-letters"
-          aria-label={`Palabra: ${gameState.displayWord.split(' ').join(', ')}`}
-        >
+      <div className="word-display">
+        <p className="sr-only">
+          Palabra: {gameState.displayWord.split('').join(' ')}
+        </p>
+        <div className="word-letters" aria-hidden="true">
           {gameState.displayWord.split(' ').map((letter, index) => (
-            <span key={index} className="word-letter" aria-hidden="true">
+            <span key={index} className="word-letter">
               {letter}
             </span>
           ))}
@@ -177,15 +174,17 @@ export default function GameScreen({
       </div>
 
       {/* Letras usadas */}
-      <div className="used-letters" role="region" aria-label="Letras usadas">
-        <h3>Letras usadas:</h3>
-        <div 
-          className="letters-list"
-          aria-label={`Letras usadas: ${gameState.guessedLetters.join(', ') || 'ninguna'}`}
-        >
+      <div className="used-letters">
+        <h2>Letras usadas</h2>
+        <p className="sr-only">
+          {gameState.guessedLetters.length > 0 
+            ? `Letras usadas: ${gameState.guessedLetters.join(', ')}`
+            : 'No has usado ninguna letra todavía'}
+        </p>
+        <div className="letters-list" aria-hidden="true">
           {gameState.guessedLetters.length > 0 ? (
             gameState.guessedLetters.map((letter, index) => (
-              <span key={index} className="used-letter" aria-hidden="true">
+              <span key={index} className="used-letter">
                 {letter}
               </span>
             ))
@@ -211,14 +210,9 @@ export default function GameScreen({
             onChange={handleLetterInputChange}
             placeholder="Letra"
             maxLength="1"
-            aria-label="Ingresa una letra para adivinar"
             autoComplete="off"
           />
-          <button 
-            type="submit" 
-            className="btn btn-primary"
-            aria-label="Adivinar letra"
-          >
+          <button type="submit" className="btn btn-primary">
             Adivinar Letra
           </button>
         </form>
@@ -228,7 +222,6 @@ export default function GameScreen({
           <button
             className="btn btn-secondary"
             onClick={handleOpenWordDialog}
-            aria-label="Adivinar palabra completa"
           >
             Adivinar Palabra
           </button>
@@ -237,7 +230,7 @@ export default function GameScreen({
             className="btn btn-secondary"
             onClick={handleOpenHintConfirm}
             disabled={gameState.attemptsLeft <= 1}
-            aria-label={`Pedir pista. ${gameState.attemptsLeft <= 1 ? 'No disponible con 1 intento o menos' : 'Cuesta 1 intento'}`}
+            title={gameState.attemptsLeft <= 1 ? 'No disponible con 1 intento o menos' : 'Cuesta 1 intento'}
           >
             Pista
           </button>
@@ -245,21 +238,10 @@ export default function GameScreen({
           <button
             className="btn btn-danger"
             onClick={handleAbandonConfirm}
-            aria-label="Abandonar partida"
           >
             Abandonar
           </button>
         </div>
-      </div>
-
-      {/* Región ARIA live para anuncios */}
-      <div 
-        className="sr-only" 
-        role="status" 
-        aria-live="polite" 
-        aria-atomic="true"
-      >
-        {gameState.lastMessage}
       </div>
 
       {/* Diálogo para adivinar palabra */}
@@ -267,7 +249,6 @@ export default function GameScreen({
         <div 
           className="dialog-overlay" 
           onClick={handleCloseWordDialog}
-          role="presentation"
         >
           <div 
             className="dialog" 
@@ -290,23 +271,17 @@ export default function GameScreen({
                 onChange={(e) => setWordInput(e.target.value.toUpperCase())}
                 placeholder="PALABRA"
                 autoFocus
-                aria-label="Ingresa la palabra completa"
                 autoComplete="off"
               />
               
               <div className="dialog-buttons">
-                <button 
-                  type="submit" 
-                  className="btn btn-primary"
-                  aria-label="Confirmar palabra"
-                >
+                <button type="submit" className="btn btn-primary">
                   Confirmar
                 </button>
                 <button
                   type="button"
                   className="btn btn-secondary"
                   onClick={handleCloseWordDialog}
-                  aria-label="Cancelar"
                 >
                   Cancelar
                 </button>
@@ -321,7 +296,6 @@ export default function GameScreen({
         <div 
           className="dialog-overlay" 
           onClick={handleCloseHintConfirm}
-          role="presentation"
         >
           <div 
             className="dialog dialog-small" 
@@ -340,7 +314,6 @@ export default function GameScreen({
               <button 
                 className="btn btn-primary"
                 onClick={handleConfirmHint}
-                aria-label="Confirmar uso de pista"
                 autoFocus
               >
                 Usar Pista
@@ -348,7 +321,6 @@ export default function GameScreen({
               <button
                 className="btn btn-secondary"
                 onClick={handleCloseHintConfirm}
-                aria-label="Cancelar"
               >
                 Cancelar
               </button>
@@ -356,6 +328,6 @@ export default function GameScreen({
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

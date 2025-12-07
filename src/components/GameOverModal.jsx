@@ -39,7 +39,7 @@ export default function GameOverModal({ won, word, onPlayAgain, onGoHome }) {
   };
 
   return (
-    <div className="modal-overlay" role="presentation">
+    <div className="modal-overlay">
       <div 
         ref={modalRef}
         className={`game-over-modal ${won ? 'victory' : 'defeat'}`}
@@ -74,7 +74,6 @@ export default function GameOverModal({ won, word, onPlayAgain, onGoHome }) {
           <button
             className="btn btn-primary btn-large"
             onClick={handlePlayAgain}
-            aria-label="Jugar otra vez"
             autoFocus
           >
             Jugar Otra Vez
@@ -83,7 +82,6 @@ export default function GameOverModal({ won, word, onPlayAgain, onGoHome }) {
           <button
             className="btn btn-secondary"
             onClick={handleGoHome}
-            aria-label="Volver al inicio"
           >
             Volver al Inicio
           </button>

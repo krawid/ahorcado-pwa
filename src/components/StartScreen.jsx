@@ -103,22 +103,18 @@ export default function StartScreen({
   }, [showDifficultyDialog]);
 
   return (
-    <div className="start-screen" role="main">
+    <main className="start-screen">
       <h1 className="game-title">Juego del Ahorcado</h1>
 
-      <div className="settings-display" role="region" aria-label="Configuración actual del juego">
+      <div className="settings-display">
         <div className="setting-item">
           <span className="setting-label">Categoría:</span>
-          <span className="setting-value" aria-label={`Categoría actual: ${category}`}>
-            {category}
-          </span>
+          <span className="setting-value">{category}</span>
         </div>
 
         <div className="setting-item">
           <span className="setting-label">Dificultad:</span>
-          <span className="setting-value" aria-label={`Dificultad actual: ${difficulty}`}>
-            {difficulty}
-          </span>
+          <span className="setting-value">{difficulty}</span>
         </div>
       </div>
 
@@ -126,7 +122,6 @@ export default function StartScreen({
         <button
           className="btn btn-primary btn-large"
           onClick={handleStartGame}
-          aria-label="Iniciar nuevo juego"
         >
           Jugar
         </button>
@@ -134,7 +129,6 @@ export default function StartScreen({
         <button
           className="btn btn-secondary"
           onClick={handleOpenCategoryDialog}
-          aria-label="Cambiar categoría"
         >
           Cambiar Categoría
         </button>
@@ -142,7 +136,6 @@ export default function StartScreen({
         <button
           className="btn btn-secondary"
           onClick={handleOpenDifficultyDialog}
-          aria-label="Cambiar dificultad"
         >
           Cambiar Dificultad
         </button>
@@ -150,7 +143,6 @@ export default function StartScreen({
         <button
           className="btn btn-secondary"
           onClick={onManageWords}
-          aria-label="Gestionar palabras personalizadas"
         >
           Gestionar Palabras
         </button>
@@ -161,7 +153,6 @@ export default function StartScreen({
         <div 
           className="dialog-overlay" 
           onClick={handleCloseCategoryDialog}
-          role="presentation"
         >
           <div 
             ref={categoryDialogRef}
@@ -179,11 +170,10 @@ export default function StartScreen({
                   key={cat}
                   className={`dialog-option ${cat === category ? 'selected' : ''}`}
                   onClick={() => handleSelectCategory(cat)}
-                  aria-label={`Seleccionar categoría ${cat}${cat === category ? ' (actual)' : ''}`}
                   aria-pressed={cat === category}
                 >
                   {cat}
-                  {cat === category && <span className="checkmark" aria-hidden="true"> ✓</span>}
+                  {cat === category && <span aria-hidden="true"> ✓</span>}
                 </button>
               ))}
             </div>
@@ -191,7 +181,6 @@ export default function StartScreen({
             <button
               className="btn btn-secondary dialog-close"
               onClick={handleCloseCategoryDialog}
-              aria-label="Cerrar diálogo"
             >
               Cancelar
             </button>
@@ -204,7 +193,6 @@ export default function StartScreen({
         <div 
           className="dialog-overlay" 
           onClick={handleCloseDifficultyDialog}
-          role="presentation"
         >
           <div 
             ref={difficultyDialogRef}
@@ -222,16 +210,15 @@ export default function StartScreen({
                   key={diff}
                   className={`dialog-option ${diff === difficulty ? 'selected' : ''}`}
                   onClick={() => handleSelectDifficulty(diff)}
-                  aria-label={`Seleccionar dificultad ${diff}${diff === difficulty ? ' (actual)' : ''}`}
                   aria-pressed={diff === difficulty}
                 >
                   {diff}
-                  {diff === difficulty && <span className="checkmark" aria-hidden="true"> ✓</span>}
+                  {diff === difficulty && <span aria-hidden="true"> ✓</span>}
                 </button>
               ))}
             </div>
 
-            <div className="difficulty-info" role="note" aria-label="Información sobre niveles de dificultad">
+            <div className="difficulty-info">
               <p><strong>Fácil:</strong> 8 intentos</p>
               <p><strong>Normal:</strong> 6 intentos</p>
               <p><strong>Difícil:</strong> 4 intentos</p>
@@ -240,13 +227,12 @@ export default function StartScreen({
             <button
               className="btn btn-secondary dialog-close"
               onClick={handleCloseDifficultyDialog}
-              aria-label="Cerrar diálogo"
             >
               Cancelar
             </button>
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

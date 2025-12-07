@@ -48,6 +48,11 @@
   --font-size-xl: 1.25rem;
   --font-size-2xl: 1.5rem;
   --font-size-3xl: 2rem;
+  
+  /* Radios de borde */
+  --border-radius-sm: 0.25rem;
+  --border-radius-md: 0.5rem;
+  --border-radius-lg: 1rem;
   --font-size-4xl: 2.5rem;
   
   /* Pesos de fuente */
@@ -105,6 +110,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   color: var(--color-text-primary);
+}
+
+/* Clase para contenido solo para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Contenedor principal */

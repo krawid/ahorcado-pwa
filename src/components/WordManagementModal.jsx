@@ -207,7 +207,7 @@ export default function WordManagementModal({ onClose }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={handleClose} role="presentation">
+    <div className="modal-overlay" onClick={handleClose}>
       <div 
         ref={modalRef}
         className="word-management-modal" 
